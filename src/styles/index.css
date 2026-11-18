@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import './animations.css';
+
+@layer base {
+  /* Default (blue) palette. Dashboard (teal), catalogue (purple) and booking (indigo) pages override it through data-section. */
+  :root {
+    --brand-50: 238 246 255; --brand-100: 220 235 255; --brand-200: 185 214 255; --brand-400: 79 155 255;
+    --brand-500: 43 127 255; --brand-600: 23 100 232; --brand-700: 20 80 189; --brand-900: 12 47 115;
+  }
+  [data-section='dashboard'] {
+    --brand-50: 236 253 250; --brand-100: 204 251 241; --brand-200: 153 246 228; --brand-400: 45 190 180;
+    --brand-500: 20 158 160; --brand-600: 13 124 140; --brand-700: 14 99 116; --brand-900: 8 51 68;
+  }
+  [data-section='catalogue'] {
+    --brand-50: 250 245 255; --brand-100: 243 232 255; --brand-200: 233 213 255; --brand-400: 192 132 252;
+    --brand-500: 168 85 247; --brand-600: 147 51 234; --brand-700: 126 34 206; --brand-900: 59 7 100;
+  }
+  [data-section='booking'] {
+    --brand-50: 243 241 255; --brand-100: 229 225 255; --brand-200: 203 195 255; --brand-400: 143 125 255;
+    --brand-500: 112 88 245; --brand-600: 91 63 224; --brand-700: 74 48 189; --brand-900: 42 26 115;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-sand-50 font-sans text-ink-900 antialiased;
+    background-image:
+      radial-gradient(900px 500px at 100% -10%, rgb(var(--brand-500) / .12), transparent 60%),
+      radial-gradient(700px 400px at -10% 10%, rgba(34,211,238,.10), transparent 60%);
+    background-attachment: fixed;
+  }
+  h1, h2, h3 { @apply font-display font-bold tracking-tight text-ink-950; }
+  :focus-visible { @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-sand-50 rounded-md; }
+  ::selection { background: rgb(var(--brand-200)); color: rgb(var(--brand-900)); }
+}
+
+@layer components {
+  .card { @apply rounded-3xl border border-ink-100/80 bg-white shadow-card; }
+  .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium; }
+  .field-label { @apply mb-1.5 block text-xs font-semibold uppercase tracking-wider text-ink-500; }
+  .input { @apply w-full rounded-xl border border-ink-100 bg-white px-3.5 py-2.5 text-sm text-ink-900 placeholder:text-ink-300 transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-200; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; scroll-behavior: auto !important; }
+}
+
+@layer components {
+  .glass { @apply border border-ink-100/70 bg-white/80 backdrop-blur-xl; }
+}
+
+@media print {
+  body { background: #fff !important; }
+  body * { visibility: hidden; }
+  .print-area, .print-area * { visibility: visible; }
+  .print-area { position: absolute; left: 0; top: 0; width: 100%; max-width: none; box-shadow: none; border: 0; }
+}
